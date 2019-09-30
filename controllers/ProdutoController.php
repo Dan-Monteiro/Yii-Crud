@@ -69,7 +69,7 @@ class ProdutoController extends Controller
     {
         $model = new Produto();
         $array = Categoria::find()->all();
-        $listCategoria = ArrayHelper::map($array, 'id', 'nome');
+        //$listCategoria = ArrayHelper::map($array, 'id', 'nome');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -77,7 +77,8 @@ class ProdutoController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'array' => $listCategoria
+            'array' => $array,
+            'btnLabel' => 'Criar'
         ]);
     }
 
@@ -91,6 +92,7 @@ class ProdutoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $array = Categoria::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -98,6 +100,8 @@ class ProdutoController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'array' => $array,
+            'btnLabel' => 'Atualizar'
         ]);
     }
 

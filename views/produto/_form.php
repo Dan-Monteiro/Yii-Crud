@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Produto */
@@ -22,7 +23,7 @@ use kartik\select2\Select2;
     <!--?= $form->field($model, 'id_categoria')->dropDownList($array, ['prompt'=>'Escolha Categoria']) ?-->
 
     <?php echo ($form->field($model, 'id_categoria')->widget(Select2::classname(), [
-        'data' => $array,
+        'data' => ArrayHelper::map($array, 'id', 'nome'),
         'options' => ['placeholder' => 'Escolha Categoria'],
         'pluginOptions' => [
             'allowClear' => true
@@ -30,7 +31,7 @@ use kartik\select2\Select2;
     ]));
     ?>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Html::encode($btnLabel), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

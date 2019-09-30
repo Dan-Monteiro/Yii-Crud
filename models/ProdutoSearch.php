@@ -11,6 +11,9 @@ use app\models\Produto;
  */
 class ProdutoSearch extends Produto
 {
+
+    private $categoria;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +21,7 @@ class ProdutoSearch extends Produto
     {
         return [
             [['id', 'id_categoria'], 'integer'],
-            [['nome', 'descricao'], 'safe'],
+            [['nome', 'descricao', 'categoria'], 'safe'],
             [['valor'], 'number'],
         ];
     }
@@ -42,6 +45,7 @@ class ProdutoSearch extends Produto
     public function search($params)
     {
         $query = Produto::find();
+        $query->joinWith('categoria');
 
         // add conditions that should always apply here
 
@@ -57,15 +61,20 @@ class ProdutoSearch extends Produto
             return $dataProvider;
         }
 
+        $dataProvider->sort->attributes['categoria'] = [
+            'asc' => ['Categoria.nome' => SORT_ASC],
+            'desc' => ['Categoria.nome' => SORT_DESC],
+        ];
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'valor' => $this->valor,
-            'id_categoria' => $this->id_categoria,
+            'valor' => $this->valor
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome])
-            ->andFilterWhere(['like', 'descricao', $this->descricao]);
+        $query->andFilterWhere(['like', 'Produto.nome', $this->nome])
+            ->andFilterWhere(['like', 'Produto.descricao', $this->descricao])
+            ->andFilterWhere(['like', 'Categoria.nome', $this->categoria]);
 
         return $dataProvider;
     }

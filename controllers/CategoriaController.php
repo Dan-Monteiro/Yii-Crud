@@ -74,6 +74,7 @@ class CategoriaController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'btnLabel' => 'Criar'
         ]);
     }
 
@@ -94,6 +95,7 @@ class CategoriaController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'btnLabel' => 'Atualizar'
         ]);
     }
 
