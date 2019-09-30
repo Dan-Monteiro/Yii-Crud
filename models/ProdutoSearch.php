@@ -12,7 +12,7 @@ use app\models\Produto;
 class ProdutoSearch extends Produto
 {
 
-    private $categoria;
+    public $categoria;
 
     /**
      * {@inheritdoc}

@@ -68,17 +68,23 @@ class ProdutoController extends Controller
     public function actionCreate()
     {
         $model = new Produto();
+        $modelCategoria = new Categoria();
         $array = Categoria::find()->all();
         //$listCategoria = ArrayHelper::map($array, 'id', 'nome');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
+        }else if($modelCategoria->load(Yii::$app->request->post()) && $modelCategoria->save()){
+            $array = Categoria::find()->all();
+            $modelCategoria = new Categoria();
+            //return var_dump($array);
         }
 
         return $this->render('create', [
             'model' => $model,
             'array' => $array,
-            'btnLabel' => 'Criar'
+            'btnLabel' => 'Criar',
+            'modelCategoria' => $modelCategoria
         ]);
     }
 

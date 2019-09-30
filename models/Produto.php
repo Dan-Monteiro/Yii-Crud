@@ -50,7 +50,7 @@ class Produto extends \yii\db\ActiveRecord
             'nome' => 'Nome',
             'descricao' => 'Descricao',
             'valor' => 'Valor',
-            'id_categoria' => 'Id Categoria',
+            'id_categoria' => 'Categoria',
         ];
     }
 
